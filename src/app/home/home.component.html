@@ -1,0 +1,252 @@
+<div class="col-md-2">
+</div>
+<div class="container col-md-10">
+  <div class="secao">
+    <h3 class="text-center">Bem Vindo</h3>
+    <h5>  Em um único site descubra seus índices e valores metabólicos para manter uma boa forma</h5>
+    <a>Aplicação irá calcular sua NDC (Necessidade de calorias), IMC (Índice de massa corpórea), TMB (Taxa metabólica basal) e Quantidade de macronutrientes para manutenção de uma boa forma</a>
+    <br>
+    <a>Seu uso e muito simples :</a>
+    <ol class="v">
+        <li>1º Click no botão  iniciar simulação</li>
+        <li>2º Informe seus dados pessoais</li>
+        <li>3º Observe seus resultados</li>
+      </ol>
+    <h5>Ao final veja as opções de cardápio e gere PDF com os resultados da simulação</h5>
+  </div>
+    <!-- Modal -->
+    <div  [formGroup]="dadosPessoaForm">
+    <div  class="modal fade" data-backdrop="static" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 *ngIf="modalValMetab" class="modal-title">Informe seus dados pessoais</h4>
+              <h4 *ngIf="modalValSaude" class="modal-title">Valores metabólicos</h4>
+              <h4 *ngIf="modalCardapio" class="modal-title">Opções de Cardápio</h4>
+              <button (click)="setStatusModal()" type="button" class="close" data-dismiss="modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div *ngIf="modalValMetab" class="row" >
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">Idade</div>
+                        </div>
+                          <input formControlName="idade" type="number" class="form-control" id="idade" placeholder="30">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="text-dark" style="color: black">Sexo</label>
+                      <br/>
+                      <input  formControlName="sexo" type="radio" value="masculino" checked> Masculino<br>
+                      <input  formControlName="sexo" type="radio" value="feminino"> Feminino<br>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Altura</div>
+                    </div>
+                    <input formControlName="altura" type="number" class="form-control" id="altura" placeholder="Centímetros">
+                  </div>
+                  <br/>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Peso</div>
+                    </div>
+                       <input formControlName="peso" type="number" class="form-control" id="peso" placeholder="Kilos">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Frequência de atividades físicas</label>
+                    <select multiple formControlName="fa" class="form-control" id="nvAtividadeFisica">
+                      <option value=1.2>Sedentário - Pouco ou sem exercício, trabalho de escritório</option>
+                      <option value=1.375>Atividade Leve - Atividade leve de 3-5 dias na semana</option>
+                      <option value=1.55>Atividade Moderada - Atividade moderada de 3-5 dias na semana</option>
+                      <option value=1.725>Atividade Alta - Atividade pesada de 6-7 dias na semana</option>
+                      <option value=1.9>Atividade Muito Alta - Atividades pesadas de 7 dias na semana com treinos</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="modalValSaude" class="container">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <div class="carousel-caption" class="d-block w-100">
+                            <div class="border" style="padding-left:1%">
+                              <div class="row">
+                                <div class="col-md-8">
+                                    <h3>TMB-Taxa Metabólica Basal</h3>
+                                    <hr />
+                                    <a>É a quantidade de calorias que nosso corpo consome mesmo que fiquemos de repouso durante o dia todo. A TMB nos permite calcular a NDC sendo a base para os proximos indices metabólicos</a>
+                                    <hr />
+                                    <h5>Sua TMB fé de: {{tmb}}cal</h5>
+                                  <!-- <h5>Proteinas: 200g | Gordura: 100g | Carboidrato: 300g</h5> -->
+                                </div>
+                                <div class="col-md-4" style="padding:0%">
+                                  <img src="/assets/ofertas/1/img3.jpg">
+                                  </div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-caption" class="d-block w-100">
+                                <div class="border" style="padding-left:1%">
+                                  <div class="row">
+                                    <div class="col-md-8">
+                                        <h3>NDC-Necessida de calorias Diaria</h3>
+                                        <hr />
+                                        <a>Caso a atividade física seja diferente de sedentário, a demanda calorica irá alterar. Para emagrecer ou ganhar peso com saúde e recomendado que não passemos de 0.5Kg por semana.</a>
+                                        <hr />
+                                        <li>Perder 0.5Kg por semana sua NDC é de: {{calDef.perder}}cal</li>
+                                        <hr/>
+                                        <li>Para ganhar 0.05Kg por semana sua NDC é de: {{calDef.ganhar}}cal</li>
+                                        <hr />
+                                        <h5>NDC para manter peso é de: {{ndc}}cal</h5>
+                                    </div>
+                                    <div style="padding:0%" class="col-md-4">
+                                      <img src="/assets/ofertas/1/img4.jpg">
+                                      </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-caption" class="d-block w-100">
+                                <div class="border" style="padding:1%">
+                                  <div class="row">
+                                    <div class="col-md-8">
+                                        <h3>Indice de massa corpóra - IMC</h3>
+                                        <hr />
+                                        <a>{{imc.risco}}</a>
+                                        <img style="margin-right:2px" src="{{imc.img}}">
+                                        <hr />
+                                        <h5>Seu IMC é de: {{imc.imc}}</h5>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon text-dark" style="color:blackblue" aria-hidden="true"></span>
+                        <span class="sr-only text-dark">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" style="color:black" href="#carouselExampleIndicators" style="color:blue" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" style="color:black" aria-hidden="true"></span>
+                        <span class="sr-only text-dark">Next</span>
+                      </a>
+                    </div>
+              </div>
+              <div *ngIf="modalCardapio">
+                      <div class="border" style="padding-left:1%; padding-top:1%">
+                        <div class="row">
+                          <div id="list-example" class="list-group col-md-4"  style="padding-left:2%; padding-right:0%" >
+                              <a class="list-group-item list-group-item-action" href="#list-item-1">Basico Academia</a>
+                              <a class="list-group-item list-group-item-action" href="#list-item-2">Maior Variedade</a>
+                              <a class="list-group-item list-group-item-action" href="#list-item-3">Sem Carne</a>
+                            </div>
+                            <div class="styleSpy col-md-8" data-spy="scroll" data-target="#list-example" data-offset="0">
+                              <h4 id="list-item-1">Básico academia</h4>
+                              <hr/>
+                              <span>Café da manhã:</span>
+                              <a>100gr de Aveia e 1/2 Abacate</a>
+                              <li>Almoço:</li>
+                              <a>1 espumadeira de arroz, 1 concha de feijão, 150g de peito de frango com 40g de bata doce</a>
+                              <li>Janta: <li>
+                              <a>2 ovos cozido 150g de peito de frango, repita a quantia de arroz e feijão </a>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <p>...</p>
+                              <h4 id="list-item-2">Maior variedade</h4>
+                              <p>...</p>
+                              <h4 id="list-item-3">Sem carne</h4>
+                              <p>...</p>
+                            </div>
+                            </div>
+                    </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button *ngIf="modalValMetab" [disabled]="dadosPessoaForm.invalid" (click)="calcResult()" type="button" value="input" class="btn btn-primary btn-lg">Continuar</button >
+              <button *ngIf="modalValMetab" type="button" (click)="limpar()" class="btn btn-outline-dark">Limpar</button>
+              <button *ngIf="modalValSaude" (click)="trocarModalCardapio()" type="button" class="btn btn-primary btn-lg">Ver Cardápio</button> 
+              <button *ngIf="modalCardapio" (click)="gerarPDF()" type="button" value="input" class="btn btn-primary btn-lg">Gerar PDF</button >
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <hr />
+      <div class="centered col-md-8" style="margin-left:40%">
+           <button data-toggle="modal" id="iniciarSimulacao" data-target="#myModal" class="btn-lg btn-success">Iniciar simulação</button>
+       </div>
+       <hr />
+       <div class="row">
+         <div class="col-sm-4" *ngFor="let oferta of ofertas">
+           <div class="card" style="margin-bottom:50px; padding: 2%">
+             <img class="card-img-top" [src]="oferta.imagens[0].url">
+             <div class="card-block">
+               <h4 class="card-title">{{ oferta.titulo }}</h4>
+               <p class="card-text">{{ oferta.descricao_oferta }}</p>
+               <p class="preco">{{ oferta.valor }}</p>
+               <a href={{oferta.link}}  target="_blank" class="btn btn-outline-primary">Ver {{oferta.categoria}}</a>
+             </div>
+           </div>
+         </div>
+       <hr /> 
+     </div>
+<div class="col-md-2">
+</div>
+<div id="content" #content style="display: none;">
+  <h3>Relatório</h3>
+    <h5>Segue seus valores metabólicos e exemplos de cardápio gerados no dia 20/06/2018 ás 13:14</h5>
+    <p>Com os parâmetros de entrada: {{idade}} Anos, {{altura}}cm de Altura, Sexo {{sexo}} e Fator de atividade {{faDesc}} e Peso {{peso}}</p>
+    <p>_________________________________________________________________________________________</p>
+    <p>TMB (Taxa Metabólica Basal): {{tmb}}/cal</p>
+    <p>NDC (Necessidade de calorias diárias): {{ndc}}/cal</p>
+    <p>IMC (Índice de massa corpórea): {{imc}} enquadrado no nível: {{nivelIMC}}</p>
+    <p>Demanda calórica diária para manter o peso: {{calDef.ganhar}}cal</p>
+    <p>Demanda calórica diária para perder 0,5kg por semana: {{ndc}}cal</p>
+    <p>Demanda calórica diária para ganhar 0,5kg por semana: {{calDef.perder}}cal</p>
+    <p>_________________________________________________________________________________________</p>
+    <p>Macronutrientes para emagrecer de forma saudável</p>
+    <p>Proteína: {{proteina.proteinaMedia}} g / {{proteina.demProteina}}cal</p>
+    <p>Carboidrato: {{carboidrato.carboidratoMedia}}g / {{carboidrato.demCarboidrato}}cal</p>
+    <p>Gordura: {{gordura.gorduraMedia}}g / {{gordura.demGordura}}cal</p>
+    <p>_________________________________________________________________________________________</p>
+    <p>Opções de Cardápio para emagrecer de forma saudável</p>
+    <p>1º Opção :  Básico academia</p>
+    <p>Café da manhã: </p>
+    <p> Almoço:</p>
+    <p> Janta:</p>
+    <p>_________________________________________________________________________________________</p>
+    <p> 2º Opção : Maior Variedade</p>
+    <p> Café da manhã:</p>
+    <p>Almoço:</p>
+    <p>Janta:</p>
+    <p>_________________________________________________________________________________________</p>
+    <p> 3º Opção : Sem carnes</p>
+    <p>Café da manhã:</p>
+    <p>Almoço:</p>
+    <p>Janta:</p>
+</div>
+
+<!-- <button (click)="gerarPDF()" type="button" value="input" class="btn btn-primary btn-lg">Gerar PDF</button > -->

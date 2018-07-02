@@ -1,0 +1,16 @@
+ol.v {list-style-type: inherit;}
+.styleSpy {
+    position: relative;
+    overflow: auto;
+    height: 400px;
+    width: 600px
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon,
+.carousel-control.right {
+    color: black;
+    opacity:1;
+  }
+
+
